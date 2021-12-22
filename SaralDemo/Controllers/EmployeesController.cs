@@ -32,7 +32,7 @@ namespace SaralDemo.Controllers
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }4
+            }
             Employee employee = db.Employees.Find(id);
             if (employee == null)
             {
