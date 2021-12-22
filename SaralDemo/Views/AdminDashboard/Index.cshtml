@@ -1,0 +1,73 @@
+﻿
+@{
+    ViewBag.Title = "Admin Dashboard";
+}
+
+@*Add Employee*@
+<div style="margin-top:50px;">
+
+    @*<a href="/Employees/AddEmployee">
+            <h3 class="title" style="">Add Employee</h3>
+            <img src="~/Images/AddEmployee.png" style="width: 120px;  " />
+        </a>*@
+</div>
+
+@*Credit Salary*@
+@*<div style=" margin-left: 220px; MARGIN-TOP: -175px; ">*@
+<div style="margin-top:50px;">
+    <a href="/Salary_Slip/Index">
+        <h3 class="title" style=" ">Credit Salary</h3>
+        <img src="~/Images/creditsalary.jpg" style="width: 150px; " />
+    </a>
+</div>
+<br>
+<br>
+
+@*Leave Requests*@
+<div>
+    <a href="/Leave_Request/Index">
+        <h3 class="title" style="">Leave Requests</h3>
+        <img src="~/Images/Leaved.png" style="width: 120px; " />
+    </a>
+</div>
+
+@*Employees List*@
+@*<div style=" margin-left: 220px; MARGIN-TOP: -175px; ">*@
+<div style=" margin-left: 220px; margin-top: -383px; ">
+    <a href="/Employees/Index">
+        <h3 class="title" style="">Employees Directory</h3>
+        <img src="~/Images/EmployeeList.png" style="width: 120px; " />
+    </a>
+</div>
+
+
+@section Scripts
+    {
+    <script type="text/javascript">
+        $(document).ready(function () {
+            toastr.options = {
+                "closeButton": true,
+                "debug": false,
+                 "onclick": null,
+                "showDuration": "1000",
+                "hideDuration": "1000",
+                "timeOut": "2000",
+                "extendedTimeOut": "1000",
+                "showEasing": "swing",
+                "hideEasing": "linear",
+                "showMethod": "fadeIn",
+                "hideMethod": "fadeOut"
+            };
+            if ('@TempData["Message"]' == "Added")
+            {
+                toastr.success('Login Succesfully');
+            }
+            else
+            {
+                
+            }
+        });
+
+
+    </script>
+}

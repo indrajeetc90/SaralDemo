@@ -1,0 +1,42 @@
+﻿@model IEnumerable<SaralDemo.Models.LeaveCount>
+
+
+
+<h2>LeaveInfo</h2>
+
+
+<div>
+
+    @foreach (var item in Model)
+    {
+        <div class="project-info-box">
+            <p>
+                <b>
+                    @Html.DisplayNameFor(model => model.Employee.FullName):
+                </b> @Html.DisplayFor(modelItem => item.Employee.FullName)
+                <br />
+
+                <b>
+                    @Html.DisplayNameFor(model => model.CasualLeave):
+                </b> @Html.DisplayFor(modelItem => item.CasualLeave)
+                <br />
+
+
+
+                <b>
+                    @Html.DisplayNameFor(model => model.OptionalHoliday):
+                </b> @Html.DisplayFor(modelItem => item.OptionalHoliday)
+                <br />
+
+                <b>
+                    @Html.DisplayNameFor(model => model.TotalLeave):
+                </b> @Html.DisplayFor(modelItem => item.TotalLeave)
+                <br />
+
+
+            </p>
+
+
+        </div><!-- / project-info-box -->
+    }
+</div>

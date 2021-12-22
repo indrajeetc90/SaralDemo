@@ -1,0 +1,155 @@
+﻿@model IEnumerable<SaralDemo.Models.LeaveCount>
+@foreach (var item in Model)
+{
+    @Html.Partial("_EmployeeLeave", Model)
+}
+@{
+    ViewBag.Title = "Home Page";
+}
+<script src="~/Scripts/jquery-3.4.1.min.js"></script>
+<script src="~/Scripts/bootstrap.js"></script>
+<script src="~/Scripts/bootstrap.min.js"></script>
+
+
+@*<div class="welcome-box">
+        <div class="col-md-12">
+            <div class="row">
+                <div class="col-md-6 ">
+                    <div class="welcome-det">
+                        <h4>Welcome &nbsp;Indrajeet Choudhary !</h4>
+                        <h5 class="text-light ">Tuesday, 24 August 2021</h5>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div>*@
+
+@if (User.IsInRole("Employee"))
+{
+
+    @*Apply Leave*@
+
+    <div class="abc" style="margin-left: 759px; margin-top: -210px;">
+        <div style="margin-top:50px;">
+
+            <a href="/Leave_Request/Create">
+                <h3 class="title" style="">Apply Leave</h3>
+                <img src="~/Images/Leaved.png" style="width: 120px;  " />
+            </a>
+        </div>
+
+        @*Team Strength*@
+        <div style=" margin-left: 220px; MARGIN-TOP: -175px; ">
+            <a href="#">
+                <h3 class="title" style=" ">Team Strength</h3>
+                <img src="~/Images/team1.png" style="width: 150px; " />
+            </a>
+        </div>
+        <br>
+        <br>
+
+        @*Profile Information*@
+        <div>
+            <a href="/Home/Profile">
+                <h3 class="title" style="">Profile Information</h3>
+                <img src="~/Images/profileInfo.jpg" style="width: 120px; " />
+            </a>
+        </div>
+
+
+        @*Salary Slip*@
+
+
+        <div style=" margin-left: 220px; margin-top: -176px; ">
+            <a href="/Salary_Slip/Index">
+                <h3 class="title" style="">Salary Slip</h3>
+                <img src="~/Images/salary.png" style="width: 120px; " />
+            </a>
+        </div>
+
+    </div>
+}
+else if (User.IsInRole("Project Manager"))
+{
+    @*Apply Leave*@
+
+    <div class="abc" style="margin-left: 759px; margin-top: -210px;">
+        <div style="margin-top:50px;">
+
+            <a href="/Leave_Request/Index">
+                <h3 class="title" style="">Leave Requests</h3>
+                <img src="~/Images/Leaved.png" style="width: 120px;  " />
+            </a>
+        </div>
+
+        @*Team Strength*@
+        <div style=" margin-left: 220px; MARGIN-TOP: -175px; ">
+            <a href="#">
+                <h3 class="title" style=" ">Team Strength</h3>
+                <img src="~/Images/team1.png" style="width: 150px; " />
+            </a>
+        </div>
+        <br>
+        <br>
+
+        @*Profile Information*@
+        <div>
+            <a href="/Home/Profile">
+                <h3 class="title" style="">Profile Information</h3>
+                <img src="~/Images/profileInfo.jpg" style="width: 120px; " />
+            </a>
+        </div>
+
+
+        @*Salary Slip*@
+
+
+        <div style=" margin-left: 220px; margin-top: -176px; ">
+            <a href="/Salary_Slip/Index">
+                <h3 class="title" style="">Salary Slip</h3>
+                <img src="~/Images/salary.png" style="width: 120px; " />
+            </a>
+        </div>
+
+    </div>
+
+}
+
+
+
+
+
+
+@section Scripts
+    {
+    <script type="text/javascript">
+        $(document).ready(function () {
+            toastr.options = {
+                "closeButton": true,
+                "debug": false,
+                "onclick": null,
+                "showDuration": "1000",
+                "hideDuration": "1000",
+                "timeOut": "5000",
+                "extendedTimeOut": "1000",
+                "showEasing": "swing",
+                "hideEasing": "linear",
+                "showMethod": "fadeIn",
+                "hideMethod": "fadeOut"
+            };
+            if ('@TempData["Message"]' == "Added")
+            {
+                toastr.success('Login Succesfully');
+            }
+            else if ('@TempData["Message"]' == "Failed")
+            {
+                toastr.error('Login failed')
+            }
+        });
+
+
+    </script>
+
+
+}

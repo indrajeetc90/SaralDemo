@@ -1,0 +1,60 @@
+﻿@model IEnumerable<SaralDemo.Models.LeaveCount>
+<h2>
+    Leave Balance
+
+</h2>
+  
+
+    <table class="table" style="width: 60px; margin-right: -8px; margin-left: 53px; margin-top: 129px;">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.CasualLeave)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.OptionalHoliday)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.LoosOfPay)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TotalLeave)
+            </th>
+            
+            <th></th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CasualLeave)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.OptionalHoliday)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.LoosOfPay)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.TotalLeave)
+                </td>
+                
+
+            </tr>
+        }
+
+    </table>
+
+
+<style>
+    h2 {
+        display: block;
+        font-size: 2em;
+        width: 20%;
+        margin-top: 0.67em;
+        margin-bottom: -48px;
+        margin-left: 110px;
+        margin-right: 0;
+        font-weight: bold;
+    }
+</style>

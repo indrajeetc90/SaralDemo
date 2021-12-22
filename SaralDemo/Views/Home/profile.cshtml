@@ -1,0 +1,131 @@
+﻿@model IEnumerable<SaralDemo.Models.Employee>
+
+@{
+    ViewBag.Title = "Profile";
+}
+
+<h2>Profile</h2>
+<br />
+
+@foreach (var item in Model)
+{
+    <div class="project-info-box">
+        <p>
+            <b>
+                @Html.DisplayNameFor(model => model.FullName):
+            </b> @Html.DisplayFor(modelItem => item.FullName)
+            <br />
+
+
+
+            <b>
+                @Html.DisplayNameFor(model => model.Email):
+            </b> @Html.DisplayFor(modelItem => item.Email)
+            <br />
+
+            <b>
+                @Html.DisplayNameFor(model => model.Gender):
+            </b> @Html.DisplayFor(modelItem => item.Gender)
+            <br />
+
+
+
+            <b>
+                @Html.DisplayNameFor(model => model.FullName):
+            </b> @Html.DisplayFor(modelItem => item.FullName)
+            <br />
+
+
+            <b>
+                @Html.DisplayNameFor(model => model.Contact):
+            </b> @Html.DisplayFor(modelItem => item.Contact)
+            <br />
+
+
+
+            <b>
+                @Html.DisplayNameFor(model => model.DOB):
+            </b> @Html.DisplayFor(modelItem => item.DOB)
+            <br />
+
+
+
+            <b>
+                @Html.DisplayNameFor(model => model.MaritalStatus):
+            </b> @Html.DisplayFor(modelItem => item.MaritalStatus)
+            <br />
+
+
+
+            <b>
+                @Html.DisplayNameFor(model => model.FatherName):
+            </b> @Html.DisplayFor(modelItem => item.FatherName)
+            <br />
+
+            <b>
+                @Html.DisplayNameFor(model => model.MotherName):
+            </b> @Html.DisplayFor(modelItem => item.MotherName)
+            <br />
+
+
+            <b>
+                @Html.DisplayNameFor(model => model.CurrentAddress):
+            </b> @Html.DisplayFor(modelItem => item.CurrentAddress)
+            <br />
+
+
+            <b>
+                @Html.DisplayNameFor(model => model.PermanentAddress):
+            </b> @Html.DisplayFor(modelItem => item.PermanentAddress)
+            <br />
+
+            <b>
+                @Html.DisplayNameFor(model => model.Designation):
+            </b> @Html.DisplayFor(modelItem => item.Designation)
+            <br />
+
+
+
+
+
+        </p>
+
+
+    </div><!-- / project-info-box -->
+}
+
+<style>
+
+
+    body {
+        background: #f5f5f5;
+        margin-top: 20px;
+    }
+
+    .project-info-box {
+        margin: 15px 0;
+        background-color: #fff;
+        padding: 30px 40px;
+        border-radius: 5px;
+    }
+
+        .project-info-box p {
+            margin-bottom: 15px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid #d5dadb;
+        }
+
+            .project-info-box p:last-child {
+                margin-bottom: 0;
+                padding-bottom: 0;
+                border-bottom: none;
+            }
+
+
+        .project-info-box p {
+            margin-bottom: 15px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid #d5dadb;
+        }
+
+</style>

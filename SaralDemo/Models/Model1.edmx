@@ -1,0 +1,582 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="Model.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Documents_BankDetails">
+          <Key>
+            <PropertyRef Name="DocID" />
+          </Key>
+          <Property Name="DocID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="EmployeeID" Type="int" Nullable="false" />
+          <Property Name="AadharCard" Type="bigint" Nullable="false" />
+          <Property Name="PanCard" Type="varchar" MaxLength="50" />
+          <Property Name="PfAccNo" Type="int" />
+          <Property Name="BankName" Type="varchar" MaxLength="20" />
+          <Property Name="BranchName" Type="varchar" MaxLength="50" />
+          <Property Name="IfscCode" Type="varchar" MaxLength="20" />
+          <Property Name="BankAccNo" Type="bigint" />
+        </EntityType>
+        <EntityType Name="Employee">
+          <Key>
+            <PropertyRef Name="EmployeeID" />
+          </Key>
+          <Property Name="EmployeeID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="FullName" Type="varchar" MaxLength="50" />
+          <Property Name="Email" Type="varchar" MaxLength="50" />
+          <Property Name="Password" Type="varchar" MaxLength="50" />
+          <Property Name="Gender" Type="varchar" MaxLength="6" />
+          <Property Name="Contact" Type="varchar" MaxLength="15" />
+          <Property Name="DOB" Type="date" />
+          <Property Name="BloodGroup" Type="varchar" MaxLength="3" />
+          <Property Name="DOJ" Type="date" />
+          <Property Name="MaritalStatus" Type="varchar" MaxLength="9" />
+          <Property Name="FatherName" Type="varchar" MaxLength="50" />
+          <Property Name="MotherName" Type="varchar" MaxLength="50" />
+          <Property Name="CurrentAddress" Type="varchar" MaxLength="250" />
+          <Property Name="PermanentAddress" Type="varchar" MaxLength="250" />
+          <Property Name="Designation" Type="varchar" MaxLength="20" />
+        </EntityType>
+        <EntityType Name="Leave_Request">
+          <Key>
+            <PropertyRef Name="LeaveID" />
+          </Key>
+          <Property Name="LeaveID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="EmployeeID" Type="int" Nullable="false" />
+          <Property Name="FromDate" Type="date" />
+          <Property Name="ToDate" Type="date" />
+          <Property Name="LeaveType" Type="int" Nullable="false" />
+          <Property Name="ReasonOfLeave" Type="varchar" MaxLength="250" />
+          <Property Name="HalfDay" Type="varchar" MaxLength="8" />
+          <Property Name="FullDay" Type="varchar" MaxLength="8" />
+          <Property Name="LeaveStatus" Type="varchar" MaxLength="15" />
+          <Property Name="TotalDays" Type="decimal" Precision="18" Scale="0" />
+        </EntityType>
+        <EntityType Name="LeaveCount">
+          <Key>
+            <PropertyRef Name="CountID" />
+          </Key>
+          <Property Name="EmployeeID" Type="int" />
+          <Property Name="CountID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CasualLeave" Type="decimal" Precision="18" Scale="0" />
+          <Property Name="OptionalHoliday" Type="decimal" Precision="18" Scale="0" />
+          <Property Name="LoosOfPay" Type="decimal" Precision="18" Scale="0" />
+          <Property Name="TotalLeave" Type="decimal" Precision="18" Scale="0" />
+        </EntityType>
+        <EntityType Name="LeaveType">
+          <Key>
+            <PropertyRef Name="TypeID" />
+          </Key>
+          <Property Name="TypeID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="LeaveType" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Roles">
+          <Key>
+            <PropertyRef Name="RoleID" />
+          </Key>
+          <Property Name="RoleID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="EmployeeID" Type="int" />
+          <Property Name="Role" Type="varchar" MaxLength="20" />
+        </EntityType>
+        <EntityType Name="Salary_Slip">
+          <Key>
+            <PropertyRef Name="SalaryID" />
+          </Key>
+          <Property Name="SalaryID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="EmployeeID" Type="int" Nullable="false" />
+          <Property Name="Date" Type="date" />
+          <Property Name="BasicPay" Type="float" Nullable="false" />
+          <Property Name="TravelAllowance" Type="float" />
+          <Property Name="EsicCharges" Type="float" />
+          <Property Name="PfCharges" Type="float" />
+          <Property Name="MedicalAllowance" Type="float" />
+          <Property Name="Tax" Type="float" />
+          <Property Name="LeaveDeduction" Type="float" />
+          <Property Name="TotalAmount" Type="money" />
+        </EntityType>
+        <EntityType Name="TechnicalDetails">
+          <Key>
+            <PropertyRef Name="TechID" />
+          </Key>
+          <Property Name="TechID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="EmployeeID" Type="int" Nullable="false" />
+          <Property Name="TotalYearsOfExperience" Type="decimal" Precision="2" Scale="0" />
+          <Property Name="KnownTechnologiies" Type="varchar" MaxLength="250" />
+          <Property Name="Education" Type="varchar" MaxLength="50" />
+          <Property Name="PreviousCTC" Type="money" />
+          <Property Name="CureentCTC" Type="money" />
+        </EntityType>
+        <Association Name="FK_Documents_BankDetails_Employee">
+          <End Role="Employee" Type="Self.Employee" Multiplicity="1" />
+          <End Role="Documents_BankDetails" Type="Self.Documents_BankDetails" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Employee">
+              <PropertyRef Name="EmployeeID" />
+            </Principal>
+            <Dependent Role="Documents_BankDetails">
+              <PropertyRef Name="EmployeeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Leave_Request_Employee">
+          <End Role="Employee" Type="Self.Employee" Multiplicity="1" />
+          <End Role="Leave_Request" Type="Self.Leave_Request" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Employee">
+              <PropertyRef Name="EmployeeID" />
+            </Principal>
+            <Dependent Role="Leave_Request">
+              <PropertyRef Name="EmployeeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_LeaveCount_Employee">
+          <End Role="Employee" Type="Self.Employee" Multiplicity="0..1" />
+          <End Role="LeaveCount" Type="Self.LeaveCount" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Employee">
+              <PropertyRef Name="EmployeeID" />
+            </Principal>
+            <Dependent Role="LeaveCount">
+              <PropertyRef Name="EmployeeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Roles_Employee">
+          <End Role="Employee" Type="Self.Employee" Multiplicity="0..1" />
+          <End Role="Roles" Type="Self.Roles" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Employee">
+              <PropertyRef Name="EmployeeID" />
+            </Principal>
+            <Dependent Role="Roles">
+              <PropertyRef Name="EmployeeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Salary_Slip_Employee">
+          <End Role="Employee" Type="Self.Employee" Multiplicity="1" />
+          <End Role="Salary_Slip" Type="Self.Salary_Slip" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Employee">
+              <PropertyRef Name="EmployeeID" />
+            </Principal>
+            <Dependent Role="Salary_Slip">
+              <PropertyRef Name="EmployeeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TechnicalDetails_Employee">
+          <End Role="Employee" Type="Self.Employee" Multiplicity="1" />
+          <End Role="TechnicalDetails" Type="Self.TechnicalDetails" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Employee">
+              <PropertyRef Name="EmployeeID" />
+            </Principal>
+            <Dependent Role="TechnicalDetails">
+              <PropertyRef Name="EmployeeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="ModelStoreContainer">
+          <EntitySet Name="Documents_BankDetails" EntityType="Self.Documents_BankDetails" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Employee" EntityType="Self.Employee" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Leave_Request" EntityType="Self.Leave_Request" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="LeaveCount" EntityType="Self.LeaveCount" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="LeaveType" EntityType="Self.LeaveType" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Roles" EntityType="Self.Roles" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Salary_Slip" EntityType="Self.Salary_Slip" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TechnicalDetails" EntityType="Self.TechnicalDetails" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Documents_BankDetails_Employee" Association="Self.FK_Documents_BankDetails_Employee">
+            <End Role="Employee" EntitySet="Employee" />
+            <End Role="Documents_BankDetails" EntitySet="Documents_BankDetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Leave_Request_Employee" Association="Self.FK_Leave_Request_Employee">
+            <End Role="Employee" EntitySet="Employee" />
+            <End Role="Leave_Request" EntitySet="Leave_Request" />
+          </AssociationSet>
+          <AssociationSet Name="FK_LeaveCount_Employee" Association="Self.FK_LeaveCount_Employee">
+            <End Role="Employee" EntitySet="Employee" />
+            <End Role="LeaveCount" EntitySet="LeaveCount" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Roles_Employee" Association="Self.FK_Roles_Employee">
+            <End Role="Employee" EntitySet="Employee" />
+            <End Role="Roles" EntitySet="Roles" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Salary_Slip_Employee" Association="Self.FK_Salary_Slip_Employee">
+            <End Role="Employee" EntitySet="Employee" />
+            <End Role="Salary_Slip" EntitySet="Salary_Slip" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TechnicalDetails_Employee" Association="Self.FK_TechnicalDetails_Employee">
+            <End Role="Employee" EntitySet="Employee" />
+            <End Role="TechnicalDetails" EntitySet="TechnicalDetails" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="Model" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="Employee_Management_SystemEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Roles" EntityType="Model.Role" />
+          <EntitySet Name="LeaveTypes" EntityType="Model.LeaveType" />
+          <EntitySet Name="Salary_Slip" EntityType="Model.Salary_Slip" />
+          <EntitySet Name="Documents_BankDetails" EntityType="Model.Documents_BankDetails" />
+          <EntitySet Name="Employees" EntityType="Model.Employee" />
+          <EntitySet Name="TechnicalDetails" EntityType="Model.TechnicalDetail" />
+          <AssociationSet Name="FK_Documents_BankDetails_Employee" Association="Model.FK_Documents_BankDetails_Employee">
+            <End Role="Employee" EntitySet="Employees" />
+            <End Role="Documents_BankDetails" EntitySet="Documents_BankDetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Roles_Employee" Association="Model.FK_Roles_Employee">
+            <End Role="Employee" EntitySet="Employees" />
+            <End Role="Role" EntitySet="Roles" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Salary_Slip_Employee" Association="Model.FK_Salary_Slip_Employee">
+            <End Role="Employee" EntitySet="Employees" />
+            <End Role="Salary_Slip" EntitySet="Salary_Slip" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TechnicalDetails_Employee" Association="Model.FK_TechnicalDetails_Employee">
+            <End Role="Employee" EntitySet="Employees" />
+            <End Role="TechnicalDetail" EntitySet="TechnicalDetails" />
+          </AssociationSet>
+          <EntitySet Name="Leave_Request" EntityType="Model.Leave_Request" />
+          <EntitySet Name="LeaveCounts" EntityType="Model.LeaveCount" />
+          <AssociationSet Name="FK_Leave_Request_Employee" Association="Model.FK_Leave_Request_Employee">
+            <End Role="Employee" EntitySet="Employees" />
+            <End Role="Leave_Request" EntitySet="Leave_Request" />
+          </AssociationSet>
+          <AssociationSet Name="FK_LeaveCount_Employee" Association="Model.FK_LeaveCount_Employee">
+            <End Role="Employee" EntitySet="Employees" />
+            <End Role="LeaveCount" EntitySet="LeaveCounts" />
+          </AssociationSet>
+          </EntityContainer>
+        <EntityType Name="Role">
+          <Key>
+            <PropertyRef Name="RoleID" />
+          </Key>
+          <Property Name="RoleID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="EmployeeID" Type="Int32" />
+          <Property Name="Role1" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Employee" Relationship="Model.FK_Roles_Employee" FromRole="Role" ToRole="Employee" />
+        </EntityType>
+        <EntityType Name="LeaveType">
+          <Key>
+            <PropertyRef Name="TypeID" />
+          </Key>
+          <Property Name="TypeID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="LeaveType1" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="Salary_Slip">
+          <Key>
+            <PropertyRef Name="SalaryID" />
+          </Key>
+          <Property Name="SalaryID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="EmployeeID" Type="Int32" Nullable="false" />
+          <Property Name="Date" Type="DateTime" Precision="0" />
+          <Property Name="BasicPay" Type="Double" Nullable="false" />
+          <Property Name="TravelAllowance" Type="Double" />
+          <Property Name="EsicCharges" Type="Double" />
+          <Property Name="PfCharges" Type="Double" />
+          <Property Name="MedicalAllowance" Type="Double" />
+          <Property Name="Tax" Type="Double" />
+          <Property Name="LeaveDeduction" Type="Double" />
+          <Property Name="TotalAmount" Type="Decimal" Precision="19" Scale="4" />
+          <NavigationProperty Name="Employee" Relationship="Model.FK_Salary_Slip_Employee" FromRole="Salary_Slip" ToRole="Employee" />
+        </EntityType>
+        <EntityType Name="Documents_BankDetails">
+          <Key>
+            <PropertyRef Name="DocID" />
+          </Key>
+          <Property Name="DocID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="EmployeeID" Type="Int32" Nullable="false" />
+          <Property Name="AadharCard" Type="Int64" Nullable="false" />
+          <Property Name="PanCard" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="PfAccNo" Type="Int32" />
+          <Property Name="BankName" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="BranchName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="IfscCode" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="BankAccNo" Type="Int64" />
+          <NavigationProperty Name="Employee" Relationship="Model.FK_Documents_BankDetails_Employee" FromRole="Documents_BankDetails" ToRole="Employee" />
+        </EntityType>
+        <EntityType Name="Employee">
+          <Key>
+            <PropertyRef Name="EmployeeID" />
+          </Key>
+          <Property Name="EmployeeID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FullName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Password" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Gender" Type="String" MaxLength="6" FixedLength="false" Unicode="false" />
+          <Property Name="Contact" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Name="DOB" Type="DateTime" Precision="0" />
+          <Property Name="BloodGroup" Type="String" MaxLength="3" FixedLength="false" Unicode="false" />
+          <Property Name="DOJ" Type="DateTime" Precision="0" />
+          <Property Name="MaritalStatus" Type="String" MaxLength="9" FixedLength="false" Unicode="false" />
+          <Property Name="FatherName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="MotherName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="CurrentAddress" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+          <Property Name="PermanentAddress" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+          <Property Name="Designation" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Documents_BankDetails" Relationship="Model.FK_Documents_BankDetails_Employee" FromRole="Employee" ToRole="Documents_BankDetails" />
+          <NavigationProperty Name="Roles" Relationship="Model.FK_Roles_Employee" FromRole="Employee" ToRole="Role" />
+          <NavigationProperty Name="Salary_Slip" Relationship="Model.FK_Salary_Slip_Employee" FromRole="Employee" ToRole="Salary_Slip" />
+          <NavigationProperty Name="TechnicalDetails" Relationship="Model.FK_TechnicalDetails_Employee" FromRole="Employee" ToRole="TechnicalDetail" />
+          <NavigationProperty Name="Leave_Request" Relationship="Model.FK_Leave_Request_Employee" FromRole="Employee" ToRole="Leave_Request" />
+          <NavigationProperty Name="LeaveCounts" Relationship="Model.FK_LeaveCount_Employee" FromRole="Employee" ToRole="LeaveCount" />
+        </EntityType>
+        <EntityType Name="TechnicalDetail">
+          <Key>
+            <PropertyRef Name="TechID" />
+          </Key>
+          <Property Name="TechID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="EmployeeID" Type="Int32" Nullable="false" />
+          <Property Name="TotalYearsOfExperience" Type="Decimal" Precision="2" Scale="0" />
+          <Property Name="KnownTechnologiies" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+          <Property Name="Education" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="PreviousCTC" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="CureentCTC" Type="Decimal" Precision="19" Scale="4" />
+          <NavigationProperty Name="Employee" Relationship="Model.FK_TechnicalDetails_Employee" FromRole="TechnicalDetail" ToRole="Employee" />
+        </EntityType>
+        <Association Name="FK_Documents_BankDetails_Employee">
+          <End Type="Model.Employee" Role="Employee" Multiplicity="1" />
+          <End Type="Model.Documents_BankDetails" Role="Documents_BankDetails" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Employee">
+              <PropertyRef Name="EmployeeID" />
+            </Principal>
+            <Dependent Role="Documents_BankDetails">
+              <PropertyRef Name="EmployeeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Roles_Employee">
+          <End Type="Model.Employee" Role="Employee" Multiplicity="0..1" />
+          <End Type="Model.Role" Role="Role" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Employee">
+              <PropertyRef Name="EmployeeID" />
+            </Principal>
+            <Dependent Role="Role">
+              <PropertyRef Name="EmployeeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Salary_Slip_Employee">
+          <End Type="Model.Employee" Role="Employee" Multiplicity="1" />
+          <End Type="Model.Salary_Slip" Role="Salary_Slip" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Employee">
+              <PropertyRef Name="EmployeeID" />
+            </Principal>
+            <Dependent Role="Salary_Slip">
+              <PropertyRef Name="EmployeeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TechnicalDetails_Employee">
+          <End Type="Model.Employee" Role="Employee" Multiplicity="1" />
+          <End Type="Model.TechnicalDetail" Role="TechnicalDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Employee">
+              <PropertyRef Name="EmployeeID" />
+            </Principal>
+            <Dependent Role="TechnicalDetail">
+              <PropertyRef Name="EmployeeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="Leave_Request">
+          <Key>
+            <PropertyRef Name="LeaveID" />
+          </Key>
+          <Property Name="LeaveID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="EmployeeID" Type="Int32" Nullable="false" />
+          <Property Name="FromDate" Type="DateTime" Precision="0" />
+          <Property Name="ToDate" Type="DateTime" Precision="0" />
+          <Property Name="LeaveType" Type="Int32" Nullable="false" />
+          <Property Name="ReasonOfLeave" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+          <Property Name="HalfDay" Type="String" MaxLength="8" FixedLength="false" Unicode="false" />
+          <Property Name="FullDay" Type="String" MaxLength="8" FixedLength="false" Unicode="false" />
+          <Property Name="LeaveStatus" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Name="TotalDays" Type="Decimal" Precision="18" Scale="0" />
+          <NavigationProperty Name="Employee" Relationship="Model.FK_Leave_Request_Employee" FromRole="Leave_Request" ToRole="Employee" />
+        </EntityType>
+        <EntityType Name="LeaveCount">
+          <Key>
+            <PropertyRef Name="CountID" />
+          </Key>
+          <Property Name="EmployeeID" Type="Int32" />
+          <Property Name="CountID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CasualLeave" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="OptionalHoliday" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="LoosOfPay" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="TotalLeave" Type="Decimal" Precision="18" Scale="0" />
+          <NavigationProperty Name="Employee" Relationship="Model.FK_LeaveCount_Employee" FromRole="LeaveCount" ToRole="Employee" />
+        </EntityType>
+        <Association Name="FK_Leave_Request_Employee">
+          <End Type="Model.Employee" Role="Employee" Multiplicity="1" />
+          <End Type="Model.Leave_Request" Role="Leave_Request" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Employee">
+              <PropertyRef Name="EmployeeID" />
+            </Principal>
+            <Dependent Role="Leave_Request">
+              <PropertyRef Name="EmployeeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_LeaveCount_Employee">
+          <End Type="Model.Employee" Role="Employee" Multiplicity="0..1" />
+          <End Type="Model.LeaveCount" Role="LeaveCount" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Employee">
+              <PropertyRef Name="EmployeeID" />
+            </Principal>
+            <Dependent Role="LeaveCount">
+              <PropertyRef Name="EmployeeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="ModelStoreContainer" CdmEntityContainer="Employee_Management_SystemEntities">
+          <EntitySetMapping Name="Roles">
+            <EntityTypeMapping TypeName="Model.Role">
+              <MappingFragment StoreEntitySet="Roles">
+                <ScalarProperty Name="Role1" ColumnName="Role" />
+                <ScalarProperty Name="EmployeeID" ColumnName="EmployeeID" />
+                <ScalarProperty Name="RoleID" ColumnName="RoleID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="LeaveTypes">
+            <EntityTypeMapping TypeName="Model.LeaveType">
+              <MappingFragment StoreEntitySet="LeaveType">
+                <ScalarProperty Name="LeaveType1" ColumnName="LeaveType" />
+                <ScalarProperty Name="TypeID" ColumnName="TypeID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Salary_Slip">
+            <EntityTypeMapping TypeName="Model.Salary_Slip">
+              <MappingFragment StoreEntitySet="Salary_Slip">
+                <ScalarProperty Name="TotalAmount" ColumnName="TotalAmount" />
+                <ScalarProperty Name="LeaveDeduction" ColumnName="LeaveDeduction" />
+                <ScalarProperty Name="Tax" ColumnName="Tax" />
+                <ScalarProperty Name="MedicalAllowance" ColumnName="MedicalAllowance" />
+                <ScalarProperty Name="PfCharges" ColumnName="PfCharges" />
+                <ScalarProperty Name="EsicCharges" ColumnName="EsicCharges" />
+                <ScalarProperty Name="TravelAllowance" ColumnName="TravelAllowance" />
+                <ScalarProperty Name="BasicPay" ColumnName="BasicPay" />
+                <ScalarProperty Name="Date" ColumnName="Date" />
+                <ScalarProperty Name="EmployeeID" ColumnName="EmployeeID" />
+                <ScalarProperty Name="SalaryID" ColumnName="SalaryID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Documents_BankDetails">
+            <EntityTypeMapping TypeName="Model.Documents_BankDetails">
+              <MappingFragment StoreEntitySet="Documents_BankDetails">
+                <ScalarProperty Name="BankAccNo" ColumnName="BankAccNo" />
+                <ScalarProperty Name="IfscCode" ColumnName="IfscCode" />
+                <ScalarProperty Name="BranchName" ColumnName="BranchName" />
+                <ScalarProperty Name="BankName" ColumnName="BankName" />
+                <ScalarProperty Name="PfAccNo" ColumnName="PfAccNo" />
+                <ScalarProperty Name="PanCard" ColumnName="PanCard" />
+                <ScalarProperty Name="AadharCard" ColumnName="AadharCard" />
+                <ScalarProperty Name="EmployeeID" ColumnName="EmployeeID" />
+                <ScalarProperty Name="DocID" ColumnName="DocID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Employees">
+            <EntityTypeMapping TypeName="Model.Employee">
+              <MappingFragment StoreEntitySet="Employee">
+                <ScalarProperty Name="Designation" ColumnName="Designation" />
+                <ScalarProperty Name="PermanentAddress" ColumnName="PermanentAddress" />
+                <ScalarProperty Name="CurrentAddress" ColumnName="CurrentAddress" />
+                <ScalarProperty Name="MotherName" ColumnName="MotherName" />
+                <ScalarProperty Name="FatherName" ColumnName="FatherName" />
+                <ScalarProperty Name="MaritalStatus" ColumnName="MaritalStatus" />
+                <ScalarProperty Name="DOJ" ColumnName="DOJ" />
+                <ScalarProperty Name="BloodGroup" ColumnName="BloodGroup" />
+                <ScalarProperty Name="DOB" ColumnName="DOB" />
+                <ScalarProperty Name="Contact" ColumnName="Contact" />
+                <ScalarProperty Name="Gender" ColumnName="Gender" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="FullName" ColumnName="FullName" />
+                <ScalarProperty Name="EmployeeID" ColumnName="EmployeeID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TechnicalDetails">
+            <EntityTypeMapping TypeName="Model.TechnicalDetail">
+              <MappingFragment StoreEntitySet="TechnicalDetails">
+                <ScalarProperty Name="CureentCTC" ColumnName="CureentCTC" />
+                <ScalarProperty Name="PreviousCTC" ColumnName="PreviousCTC" />
+                <ScalarProperty Name="Education" ColumnName="Education" />
+                <ScalarProperty Name="KnownTechnologiies" ColumnName="KnownTechnologiies" />
+                <ScalarProperty Name="TotalYearsOfExperience" ColumnName="TotalYearsOfExperience" />
+                <ScalarProperty Name="EmployeeID" ColumnName="EmployeeID" />
+                <ScalarProperty Name="TechID" ColumnName="TechID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Leave_Request">
+            <EntityTypeMapping TypeName="Model.Leave_Request">
+              <MappingFragment StoreEntitySet="Leave_Request">
+                <ScalarProperty Name="TotalDays" ColumnName="TotalDays" />
+                <ScalarProperty Name="LeaveStatus" ColumnName="LeaveStatus" />
+                <ScalarProperty Name="FullDay" ColumnName="FullDay" />
+                <ScalarProperty Name="HalfDay" ColumnName="HalfDay" />
+                <ScalarProperty Name="ReasonOfLeave" ColumnName="ReasonOfLeave" />
+                <ScalarProperty Name="LeaveType" ColumnName="LeaveType" />
+                <ScalarProperty Name="ToDate" ColumnName="ToDate" />
+                <ScalarProperty Name="FromDate" ColumnName="FromDate" />
+                <ScalarProperty Name="EmployeeID" ColumnName="EmployeeID" />
+                <ScalarProperty Name="LeaveID" ColumnName="LeaveID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="LeaveCounts">
+            <EntityTypeMapping TypeName="Model.LeaveCount">
+              <MappingFragment StoreEntitySet="LeaveCount">
+                <ScalarProperty Name="TotalLeave" ColumnName="TotalLeave" />
+                <ScalarProperty Name="LoosOfPay" ColumnName="LoosOfPay" />
+                <ScalarProperty Name="OptionalHoliday" ColumnName="OptionalHoliday" />
+                <ScalarProperty Name="CasualLeave" ColumnName="CasualLeave" />
+                <ScalarProperty Name="CountID" ColumnName="CountID" />
+                <ScalarProperty Name="EmployeeID" ColumnName="EmployeeID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

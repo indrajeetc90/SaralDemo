@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="c25347d744604a23bfb6b49b61b1cc33" Name="Diagram1" ZoomLevel="90">
+        <EntityTypeShape EntityType="Model.Role" Width="1.5" PointX="7.625" PointY="6.75" />
+        <EntityTypeShape EntityType="Model.LeaveType" Width="1.5" PointX="8.625" PointY="4.625" />
+        <EntityTypeShape EntityType="Model.Salary_Slip" Width="1.5" PointX="5" PointY="7.25" />
+        <EntityTypeShape EntityType="Model.Documents_BankDetails" Width="1.5" PointX="6.625" PointY="11" />
+        <EntityTypeShape EntityType="Model.Employee" Width="1.5" PointX="0.5" PointY="9.25" />
+        <EntityTypeShape EntityType="Model.TechnicalDetail" Width="1.5" PointX="2.875" PointY="5.625" />
+        <AssociationConnector Association="Model.FK_Documents_BankDetails_Employee" />
+        <AssociationConnector Association="Model.FK_Roles_Employee" />
+        <AssociationConnector Association="Model.FK_Salary_Slip_Employee" />
+        <AssociationConnector Association="Model.FK_TechnicalDetails_Employee" />
+        <EntityTypeShape EntityType="Model.Leave_Request" Width="1.5" PointX="2.75" PointY="12.75" />
+        <EntityTypeShape EntityType="Model.LeaveCount" Width="1.5" PointX="2.75" PointY="9.625" />
+        <AssociationConnector Association="Model.FK_Leave_Request_Employee" />
+        <AssociationConnector Association="Model.FK_LeaveCount_Employee" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

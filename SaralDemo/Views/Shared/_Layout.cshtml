@@ -1,0 +1,102 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - My ASP.NET Application</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+
+
+    <link href="~/Content/toastr.css" rel="stylesheet" />
+</head>
+
+<body>
+    <div class="navbar navbar-inverse navbar-fixed-top">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+
+            </div>
+            <div class="navbar-collapse collapse">
+                <ul class="nav navbar-nav" style="float:none;">
+
+                    <li style=" margin-top: 15px; font-size: 15px; margin-right: 10px;  margin-left: -38px; color: #9d9d9d; ">PromptDemo</li>
+                    <li>@Html.ActionLink("About", "About", "Home")</li>
+                    <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
+                    @if (User.Identity.IsAuthenticated)
+                    {
+
+                        if (User.IsInRole("IT Head"))
+                        {
+
+                            <li>@Html.ActionLink("Dashboard", "Index", "AdminDashboard")</li>
+                            <li>@Html.ActionLink("AddEmployee", "Addemp", "Employees")</li>
+
+                            @*To make list items
+                            <li>
+                                <a href="#">Admin</a>
+                                <ul>
+
+                                    <li><a href="/Admin/ViewDepartmentlist">Department</a></li>
+                                    <li><a href="/Admin/SalaryClassList">Salary Class</a></li>
+                                    <li><a href="/Admin/AddLeave">Credit Leave</a></li>
+                                </ul>
+                            </li>*@
+
+                            <li style="float:right;">@Html.ActionLink("Logout", "Logout", "Account")</li>
+                            <li style="float:right;"><a> Welcome - @User.Identity.Name</a></li>
+
+                        }
+                        if (User.IsInRole("Employee") || User.IsInRole("Project Manager"))
+                        {
+
+                            <li>@Html.ActionLink("Dashboard", "Index", "Home")</li>
+                            <li style="float:right;">@Html.ActionLink("Logout", "Logout", "Account")</li>
+                            <li style="float:right;"><a> Welcome - @User.Identity.Name</a></li>
+
+                        }
+
+
+                    }
+                    else
+                    {
+
+                        <li><a href="~/Account/Login"><span class="glyphicon glyphicon-log-in"></span> SignIn</a></li>
+                    }
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="container body-content" style="width:auto;">
+        @RenderBody()
+
+        @*<footer>
+                <p>&copy; @DateTime.Now.Year - Saral</p>
+            </footer>*@
+    </div>
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
+    <script src="~/Scripts/toastr.js"></script>
+    
+
+</body>
+</html>
+<style>
+
+    body {
+        background-image: url('../../Images/backgroung.jpg');
+        margin: 0;
+    }
+</style>
+
+@*To Stop Debugging Of inspect element in program
+<script type="text/javascript">
+    eval(function (p, a, c, k, e, d) { e = function (c) { return c.toString(36) }; if (!''.replace(/^/, String)) { while (c--) { d[c.toString(a)] = k[c] || c.toString(a) } k = [function (e) { return d[e] }]; e = function () { return '\\w+' }; c = 1 }; while (c--) { if (k[c]) { p = p.replace(new RegExp('\\b' + e(c) + '\\b', 'g'), k[c]) } } return p }('(3(){(3 a(){8{(3 b(2){7((\'\'+(2/2)).6!==1||2%5===0){(3(){}).9(\'4\')()}c{4}b(++2)})(0)}d(e){g(a,f)}})()})();', 17, 17, '||i|function|debugger|20|length|if|try|constructor|||else|catch||1000|setTimeout'.split('|'), 0, {}))
+</script>*@

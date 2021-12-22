@@ -1,0 +1,199 @@
+﻿@model IEnumerable<SaralDemo.Models.Leave_Request>
+
+@{
+    ViewBag.Title = "Leave Reqests";
+}
+
+<h2>Leave Reqests</h2>
+<br />
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <link href="~/Content/jquery.dataTables.min.css" rel="stylesheet" />
+    <link href="~/Content/dataTables.bootstrap.min.css" rel="stylesheet" />
+
+</head>
+<body>
+    <div class="card shadow mb-4">
+        <div class="card-header py-3">
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table table-bordered" id="t1">
+                        <thead>
+                            <tr>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.Employee.FullName)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.FromDate)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.ToDate)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.LeaveType)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.ReasonOfLeave)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.HalfDay)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.FullDay)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.TotalDays)
+                                </th>
+                                <th width="120px">
+                                    @Html.DisplayNameFor(model => model.LeaveStatus)
+                                </th>
+                                <th data-orderable="false" width="132px">Operations</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+
+                            @foreach (var item in Model)
+                            {
+                                <tr>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Employee.FullName)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.FromDate)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.ToDate)
+                                    </td>
+                                    <td>
+                                        @if (item.LeaveType == 1)
+                                        {
+                                            <p>Casual Leave</p>
+                                        }
+                                        else if (item.LeaveType == 2)
+                                        {
+                                            <p>Optional Holiday</p>
+                                        }
+                                        else if (item.LeaveType == 3)
+                                        {
+                                            <p>Loss Of Pay</p>
+                                        }
+
+
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.ReasonOfLeave)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.HalfDay)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.FullDay)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.TotalDays)
+                                    </td>
+                                    <td >
+                                        @Html.DisplayFor(modelItem => item.LeaveStatus)
+
+                                        @if (User.IsInRole("IT Head") || User.IsInRole("Project Manager") )
+                                        {
+                                            if (item.LeaveStatus == "Pending")
+                                            {
+
+                                            <a id="btn1" class="btn btn-default btn-sm" href="@Url.Action("ApproveLeave", "Leave_Request", new { item.LeaveID })" onclick=" def();"> <i class="glyphicon glyphicon-ok" ></i></a> @:&nbsp;
+                                            <a id="btn2"class="btn btn-default btn-sm" href="@Url.Action("DeclineLeave", "Leave_Request", new { item.LeaveID })" onclick="def();"><i class="glyphicon glyphicon-remove"style= "font-weight:bolder"></i></a>
+                                            }
+                                            @*<button type="submit" name="SubmitButton" value="Approve" class="btn btn-sm btn-success">Approve</button>
+                                                <button type="submit" name="SubmitButton" value="Unapprove"  class="btn btn-sm btn-danger">Decline</button>*@
+
+                                        }
+
+                                    </td>
+
+                                    <td>
+                                        @if (User.IsInRole("IT Head"))
+                                        {
+
+                                            @Html.ActionLink("Delete", "Delete", new { id = item.LeaveID }, new { @class = "btn btn-danger" })@:&nbsp;
+                                            @Html.ActionLink("Details", "Details", new { id = item.LeaveID }, new { @class = "btn btn-info" })
+                                        }
+                                        else if (User.IsInRole("Employee"))
+                                        {
+                                            @Html.ActionLink("Edit", "Edit", new { id = item.LeaveID }, new { @class = "btn btn-primary" }) @:&nbsp;
+                                            @Html.ActionLink("Details", "Details", new { id = item.LeaveID }, new { @class = "btn btn-info" })
+                                        }
+                                        else if (User.IsInRole("Project Manager"))
+                                        {
+                                            @Html.ActionLink("Details", "Details", new { id = item.LeaveID }, new { @class = "btn btn-info" })
+                                        }
+
+
+                                    </td>
+                                </tr>
+                            }
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+
+@section Scripts
+    {
+    <script src="~/Scripts/jquery-3.4.1.min.js"></script>
+    <script src="~/Scripts/jquery.dataTables.min.js"></script>
+    <script src="~/Scripts/dataTables.bootstrap.min.js"></script>
+
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            toastr.options = {
+                "closeButton": true,
+                "debug": false,
+                 "onclick": null,
+                "showDuration": "1000",
+                "hideDuration": "1000",
+                "timeOut": "2000",
+                "extendedTimeOut": "1000",
+                "showEasing": "swing",
+                "hideEasing": "linear",
+                "showMethod": "fadeIn",
+                "hideMethod": "fadeOut"
+            };
+            if ('@TempData["Message"]' == "Casual")
+            {
+                toastr.error('Not Enough Balance');
+            }
+            else if ('@TempData["Message"]' == "Optional")
+            {
+                toastr.error('Not Enough Balance');
+            }
+            else if ('@TempData["Message"]' == "Loss")
+            {
+                toastr.error('Not Enough Balance');
+            }
+
+        });
+
+
+    </script>
+
+    <script>
+        function def() {
+            $("#btn1").hide();
+            $("#btn2").hide();
+
+        }
+    </script>
+
+    <script>
+        $(document).ready(function () {
+            $("#t1").dataTable();
+        })
+    </script>
+
+}

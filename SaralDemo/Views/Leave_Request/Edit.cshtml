@@ -1,0 +1,171 @@
+﻿@model SaralDemo.Models.Leave_Request
+
+@{
+    ViewBag.Title = "Edit";
+}
+
+<h2>Edit</h2>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    @Styles.Render("~/Content/themes/base/css")
+
+    <div class="form-horizontal">
+        <h4>Leave Request</h4>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        @Html.HiddenFor(model => model.LeaveID)
+        @*<div class="form-group">
+                @Html.LabelFor(model => model.EmployeeID, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.DropDownList("EmployeeID", null, htmlAttributes: new { @class = "form-control", @disabled = "disabled" })
+                    @Html.ValidationMessageFor(model => model.EmployeeID, "", new { @class = "text-danger" })
+                </div>
+            </div>*@
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.FromDate, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.FromDate, new { htmlAttributes = new { @onChange = "days()", @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.FromDate, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.ToDate, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.ToDate, new { htmlAttributes = new { @onChange = "days()", @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.ToDate, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.LeaveType, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10" style="color:black; ">
+                @Html.DropDownListFor(m => m.LeaveType, new List<SelectListItem>
+                { new SelectListItem{Text="Casual Leave", Value="1"},
+                  new SelectListItem{Text="Optional Holiday", Value="2"},
+                  new SelectListItem{Text="Loss Of Pay", Value="3"}
+                      }, "Please select", htmlAttributes: new { @class = "form-control" })
+
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.ReasonOfLeave, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.ReasonOfLeave, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.ReasonOfLeave, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.HalfDay, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10" style="color:black; ">
+                @Html.DropDownListFor(m => m.HalfDay, new List<SelectListItem>
+                { new SelectListItem{Text="Yes", Value="Yes"},
+                  new SelectListItem{Text="NO", Value="No"}
+                      }, "Please select", htmlAttributes: new { @class = "form-control" })
+
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.FullDay, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10" style="color:black; ">
+                @Html.DropDownListFor(m => m.FullDay, new List<SelectListItem>
+                { new SelectListItem{Text="Yes", Value="Yes"},
+                  new SelectListItem{Text="NO", Value="No"}
+                      }, "Please select", htmlAttributes: new { @class = "form-control" })
+
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.HiddenFor(model => model.LeaveStatus, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.HiddenFor(model => model.LeaveStatus, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+                @Html.HiddenFor(model => model.LeaveStatus, new { id = "Tid" })
+                @Html.ValidationMessageFor(model => model.LeaveStatus, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.TotalDays, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.TotalDays, new { htmlAttributes = new { id = "totalDays", @class = "form-control", @readonly = "readonly" } })
+                @Html.ValidationMessageFor(model => model.TotalDays, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Save" class="btn btn-success" />
+            </div>
+        </div>
+    </div>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+
+
+@section Scripts {
+    <script src="~/Scripts/moment.min.js"></script>
+    <script src="~/Scripts/moment.js"></script>
+    @Scripts.Render("~/bundles/jqueryval")
+    @Scripts.Render("~/bundles/jqueryui")
+    <script type="text/javascript">
+
+        $(document).ready(function () {
+
+            $("#FromDate").datepicker({
+                dateFormat: "yy-mm-dd",
+                minDate: "-3M -1D",
+                maxDate: "+3M +1D"
+
+            });
+
+            $("#ToDate").datepicker({
+                dateFormat: "yy-mm-dd",
+                minDate: "-3M -1D",
+                maxDate: "+3M +1D"
+
+            });
+
+        });
+    </script>
+
+    <script>
+        function days() {
+            var FromDate = document.getElementById('FromDate').value;
+            var ToDate = document.getElementById('ToDate').value;
+            const m1 = moment(FromDate);
+            const m2 = moment(ToDate);
+            console.log('m2===>', m2)
+
+
+            if (m1 > m2) {
+                console.log('asdasd1');
+                document.getElementById("totalDays").value = 0;
+            }
+
+            else if (m1 < m2) {
+                console.log('asdasd2');
+                const diff = m2.diff(m1, "days");
+                document.getElementById("totalDays").value = diff + 1;
+                console.log(totalDays);
+            }
+            else if (!ToDate) {
+                console.log('asdasd3');
+                document.getElementById("totalDays").value = 0.5;
+            }
+        }
+
+    </script>
+
+
+}

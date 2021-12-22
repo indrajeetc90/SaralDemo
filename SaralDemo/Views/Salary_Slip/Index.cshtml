@@ -1,0 +1,174 @@
+﻿@model IEnumerable<SaralDemo.Models.Salary_Slip>
+
+@{
+    ViewBag.Title = "Salary Details";
+}
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <link href="~/Content/jquery.dataTables.min.css" rel="stylesheet" />
+    <link href="~/Content/dataTables.bootstrap.min.css" rel="stylesheet" />
+
+</head>
+<body>
+    <div class="card shadow mb-4">
+        <div class="card-header py-3">
+            @if (User.IsInRole("IT Head"))
+            {
+                <h3 class="m-3 font-weight-bold text-primary" style=" background-color: transparent; ">
+                 
+                    <a href="/Salary_Slip/Create">
+                    <i style="border: none; background-color: transparent; font-family: sans-serif">Credit Salary +</i>
+
+                </a>
+
+                </h3>
+                
+
+            }
+            <br />
+
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table table-bordered" id="t1">
+                        <thead>
+                            <tr>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.Employee.FullName)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.Date)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.BasicPay)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.TravelAllowance)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.EsicCharges)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.PfCharges)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.MedicalAllowance)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.Tax)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.LeaveDeduction)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.TotalAmount)
+                                </th>
+                                <th data-orderable="false" width="137px">
+                                    Operations
+                                </th>
+
+                            </tr>
+                        </thead>
+                        <tbody>
+
+                            @foreach (var item in Model)
+                            {
+                                <tr>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Employee.FullName)
+                                    </td>
+
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Date)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.BasicPay)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.TravelAllowance)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.EsicCharges)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.PfCharges)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.MedicalAllowance)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Tax)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.LeaveDeduction)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.TotalAmount)
+                                    </td>
+
+                                    <td>
+                                        @if (User.IsInRole("IT Head"))
+                                        {
+                                            // @Html.ActionLink("Edit", "Edit", new { id = item.SalaryID }, new { @class = "btn btn-info" }) @:&nbsp;
+                                            @Html.ActionLink("Details", "Details", new { id = item.SalaryID }, new { @class = "btn btn-info" }) @:&nbsp;
+                                            @Html.ActionLink("Delete", "Delete", new { id = item.SalaryID }, new { @class = "btn btn-danger" })
+                                        }
+                                        else
+                                        {
+                                            @Html.ActionLink("Details", "Details", new { id = item.SalaryID }, new { @class = "btn btn-info" })
+                                        }
+
+
+                                    </td>
+                                </tr>
+                            }
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+@section Scripts {
+    <script src="~/Scripts/jquery-3.4.1.min.js"></script>
+    <script src="~/Scripts/jquery.dataTables.min.js"></script>
+    <script src="~/Scripts/dataTables.bootstrap.min.js"></script>
+    @*<script src="//cdnjs.cloudflare.com/ajax/libs/validate.js/0.13.1/validate.min.js"></script>*@
+
+    @Scripts.Render("~/bundles/jqueryval")
+    @Scripts.Render("~/bundles/jqueryui")
+    <script>
+        $(document).ready(function () {
+            $("#t1").dataTable();
+        })
+    </script>
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            toastr.options = {
+                "closeButton": true,
+                "debug": false,
+                 "onclick": null,
+                "showDuration": "1000",
+                "hideDuration": "1000",
+                "timeOut": "2000",
+                "extendedTimeOut": "1000",
+                "showEasing": "swing",
+                "hideEasing": "linear",
+                "showMethod": "fadeIn",
+                "hideMethod": "fadeOut"
+            };
+            if ('@TempData["Message"]' == "Credited")
+            {
+                toastr.success('Salary Credited Succesfully');
+            }
+
+        });
+
+
+    </script>
+
+}

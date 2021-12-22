@@ -1,0 +1,117 @@
+﻿@model SaralDemo.Models.Salary_Slip
+
+@{
+    ViewBag.Title = "Salar Slip";
+}
+
+<div id="printableArea">
+
+    <h4>Salary Slip</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Employee.FullName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Employee.FullName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Date)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Date)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.BasicPay)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.BasicPay)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TravelAllowance)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TravelAllowance)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.EsicCharges)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.EsicCharges)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.PfCharges)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PfCharges)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.MedicalAllowance)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.MedicalAllowance)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Tax)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Tax)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.LeaveDeduction)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.LeaveDeduction)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TotalAmount)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TotalAmount)
+        </dd>
+
+
+
+    </dl>
+</div>
+<p>
+    @*@Html.ActionLink("Edit", "Edit", new { id = Model.SalaryID }) |*@
+    @Html.ActionLink("Go to Salary List", "Index")
+</p>
+
+
+<div>
+    <input type="submit" value="Print Salary slip" onclick="printDiv('printableArea')" class="btn btn-primary" title="Salary slip" />
+</div>
+
+
+
+<script>
+    function printDiv(divName)
+    {
+        var printContents = document.getElementById(divName).innerHTML;
+        var originalContents = document.body.innerHTML;
+        document.body.innerHTML = printContents;
+        window.print();
+        document.body.innerHTML = originalContents;
+    }
+</script>

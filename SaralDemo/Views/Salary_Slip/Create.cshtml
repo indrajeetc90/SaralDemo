@@ -1,0 +1,200 @@
+﻿@model SaralDemo.Models.Salary_Slip
+
+@{
+    ViewBag.Title = "Credit";
+}
+
+<h2>Credit</h2>
+
+@using (Html.BeginForm())
+{
+    <script type="text/javascript" src="//code.jquery.com/jquery-1.10.2.js"></script>
+    @Html.AntiForgeryToken()
+    @Styles.Render("~/Content/themes/base/css")
+
+<div class="form-horizontal">
+    <h4>Salary Slip</h4>
+    <hr />
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.EmployeeID, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.DropDownList("EmployeeID", null, htmlAttributes: new { @class = "form-control" })
+            @Html.ValidationMessageFor(model => model.EmployeeID, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.Date, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.Date, new { htmlAttributes = new { @class = "form-control", placeholder = "YYYY-MM-DD" } })
+            @Html.ValidationMessageFor(model => model.Date, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.BasicPay, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.BasicPay, new { htmlAttributes = new { @onkeyup = "sum()", id = "Basic", @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.BasicPay, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.TravelAllowance, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.TravelAllowance, new { htmlAttributes = new { id = "Travel1", @class = "form-control", @disabled = "disabled" } })
+            @Html.HiddenFor(model => model.TravelAllowance, new { id = "TAid" })
+            @Html.ValidationMessageFor(model => model.TravelAllowance, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.EsicCharges, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.EsicCharges, new { htmlAttributes = new { id = "Esic1", @class = "form-control", @readonly = "readonly" } })
+            @Html.HiddenFor(model => model.EsicCharges, new { id = "Esid" })
+            @Html.ValidationMessageFor(model => model.EsicCharges, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.PfCharges, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.PfCharges, new { htmlAttributes = new { id = "Pf1", @class = "form-control", @readonly = "readonly" } })
+            @Html.HiddenFor(model => model.PfCharges, new { id = "Pfid" })
+            @Html.ValidationMessageFor(model => model.PfCharges, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.MedicalAllowance, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.MedicalAllowance, new { htmlAttributes = new { id = "Medical1", @class = "form-control", @readonly = "readonly" } })
+            @Html.HiddenFor(model => model.MedicalAllowance, new { id = "MAid" })
+            @Html.ValidationMessageFor(model => model.MedicalAllowance, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.Tax, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.Tax, new { htmlAttributes = new { id = "Tax", @class = "form-control", @readonly = "readonly" } })
+            @Html.ValidationMessageFor(model => model.Tax, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.LeaveDeduction, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.LeaveDeduction, new { htmlAttributes = new { @onkeyup = "sum()", id = "Leavededuct", @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.LeaveDeduction, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.TotalAmount, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.TotalAmount, new { htmlAttributes = new { id = "txtResult", @class = "form-control", @readonly = "readonly" } })
+            @Html.ValidationMessageFor(model => model.TotalAmount, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+
+    <script type="text/javascript">
+
+        function sum() {
+
+            var Basic = document.getElementById('Basic').value;
+            var Travel1 = document.getElementById('Travel1').value;
+            var Tax = 4;
+            var Esic1 = document.getElementById('Esic1').value;
+            var Pf1 = document.getElementById('Pf1').value;
+            var Medical1 = document.getElementById('Medical1').value;
+            var Leavededuct = document.getElementById('Leavededuct').value;
+            var result1 = parseInt(Basic) + parseInt(Travel1) + parseInt(Esic1) + parseInt(Pf1) + parseInt(Medical1);
+            var result2 = (Tax * result1) / 100
+            var result = result1 + result2 - Leavededuct;
+            console.log(result)
+            if (!isNaN(result)) {
+                document.getElementById('txtResult').value = result;
+                document.getElementById('Tax').value = result2;
+            }
+            else {
+                document.getElementById('txtResult').value = '';
+                document.getElementById('Tax').value = '';
+            }
+
+        }
+    </script>
+
+
+    <br />
+   
+
+    <div class="form-group">
+        @*<div class="col-md-offset-2 col-md-10">
+                <input type="submit" style="margin-left: -15px; width: 113px;" value="Credit" class="btn btn-success" />
+
+                <input type="button" value="Save And View" class="btn btn-primary" value="Credit" onclick="location.href='@Url.Action("Credit","Salary_Slip")'" />
+                <input type="button" value="Cancel" class="btn btn-warning" onclick="@("window.location.href='" + @Url.Action("Index", "Salary_Slip") + "'");" />
+            </div>*@
+        <input type="submit" style="margin-left: 189px; width: 93px; " name="actionType" class="btn btn-success" value="Save" />  
+        <input type="submit" style="margin-left: 12px; width: 112px; " name="actionType" class="btn btn-primary" value="Save and View" />
+        <input type="button" style="margin-left:18px"  value="Cancel" class="btn btn-warning" onclick="@("window.location.href='" + @Url.Action("Index", "Salary_Slip") + "'");" />
+    </div>
+</div>
+}
+
+<div>
+    @Html.ActionLink("Go to Salary Directory", "Index")
+</div>
+
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    @Scripts.Render("~/bundles/jqueryui")
+
+
+    <script type="text/javascript">
+
+        $(document).ready(function () {
+
+            $("#Date").datepicker({
+                dateFormat: "yy-mm-dd",
+                minDate: "-0M -0D",
+                maxDate: "+0M +0D"
+
+            });
+
+        });
+    </script>
+
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            toastr.options = {
+                "closeButton": true,
+                "debug": false,
+                 "onclick": null,
+                "showDuration": "1000",
+                "hideDuration": "1000",
+                "timeOut": "2000",
+                "extendedTimeOut": "1000",
+                "showEasing": "swing",
+                "hideEasing": "linear",
+                "showMethod": "fadeIn",
+                "hideMethod": "fadeOut"
+            };
+            if ('@TempData["Message"]' == "Credited")
+            {
+                toastr.success('Salary Credited Succesfully');
+            }
+
+        });
+
+
+    </script>
+}

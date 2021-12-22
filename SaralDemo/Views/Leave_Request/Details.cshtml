@@ -1,0 +1,82 @@
+﻿@model SaralDemo.Models.Leave_Request
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Leave Request</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.FromDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.FromDate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ToDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ToDate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.LeaveType)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.LeaveType)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ReasonOfLeave)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ReasonOfLeave)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.HalfDay)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.HalfDay)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.FullDay)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.FullDay)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.LeaveStatus)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.LeaveStatus)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Employee.FullName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Employee.FullName)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @*@Html.ActionLink("Edit", "Edit", new { id = Model.LeaveID }) |*@
+    @Html.ActionLink("Back to List", "Index")
+</p>
